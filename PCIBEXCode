@@ -1,0 +1,2588 @@
+// You should be able to copy the code and the files using this link: https://farm.pcibex.net/r/TaupmY/ (demo link)
+
+// If you want to copy it, you should be able to copy the following code:
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////This code was made by and belongs to Larissa da Silva Cury (UFRGS)/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+PennController.ResetPrefix(null); // Keep here
+
+var showProgressBar = false; //hide progress bar2
+
+Sequence(
+    "instructions_A",  "instructions_B", "instructions_C", "instructions_D","instructions_Extra","keyboard_warning",
+   rshuffle("p_trial_1_no_cue_UP","p_trial_1_no_cue_DOWN","p_trial_2_center_cue_UP","p_trial_2_center_cue_DOWN",
+       "p_trial_3_double_cue_UP","p_trial_3_double_cue_DOWN","p_trial_4_spatial_cue_UP","p_trial_4_spatial_cue_DOWN"),
+    "feedback-trial",
+   "instructions_E", "keyboard_warning_short", 
+ rshuffle("trial_1_no_cue_UP","trial_1_no_cue_UP",
+            "trial_1_no_cue_DOWN","trial_1_no_cue_DOWN",
+            "trial_2_center_cue_UP","trial_2_center_cue_UP",
+            "trial_2_center_cue_DOWN","trial_2_center_cue_DOWN",
+            "trial_3_double_cue_UP", "trial_3_double_cue_UP",
+            "trial_3_double_cue_DOWN","trial_3_double_cue_DOWN",
+            "trial_4_spatial_cue_UP","trial_4_spatial_cue_UP",
+            "trial_4_spatial_cue_DOWN","trial_4_spatial_cue_DOWN"),
+  "instructions_F","keyboard_warning_short",
+   rshuffle("trial_1_no_cue_UP","trial_1_no_cue_UP",
+            "trial_1_no_cue_DOWN","trial_1_no_cue_DOWN",
+            "trial_2_center_cue_UP","trial_2_center_cue_UP",
+            "trial_2_center_cue_DOWN","trial_2_center_cue_DOWN",
+            "trial_3_double_cue_UP", "trial_3_double_cue_UP",
+            "trial_3_double_cue_DOWN","trial_3_double_cue_DOWN",
+            "trial_4_spatial_cue_UP","trial_4_spatial_cue_UP",
+            "trial_4_spatial_cue_DOWN","trial_4_spatial_cue_DOWN"),
+    "instructions_G","keyboard_warning_short",
+   rshuffle("trial_1_no_cue_UP","trial_1_no_cue_UP",
+            "trial_1_no_cue_DOWN","trial_1_no_cue_DOWN",
+            "trial_2_center_cue_UP","trial_2_center_cue_UP",
+            "trial_2_center_cue_DOWN","trial_2_center_cue_DOWN",
+            "trial_3_double_cue_UP", "trial_3_double_cue_UP",
+            "trial_3_double_cue_DOWN","trial_3_double_cue_DOWN",
+            "trial_4_spatial_cue_UP","trial_4_spatial_cue_UP",
+            "trial_4_spatial_cue_DOWN","trial_4_spatial_cue_DOWN"), "blocks-timer-trial",
+    "send","telaFinal"
+);
+
+Header(
+    // Declare a global Var element "ID" in which we will store the participant's ID
+    newVar("ID").global()    
+)
+.log( "id" , getVar("ID") ); // Add the ID to all trials' results lines
+
+///////////////////////////////////////////////Instructions_A trial////////////////////////////////////////////////////////////
+newTrial("instructions_A",
+defaultText
+        .center()
+        .print()
+ ,
+newText("instructions-1","Instruções para os participantes:")
+.cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px",
+    "white-space":"nowrap"})
+,
+newText("instructions-2","<p>Este é um experimento investigando a atenção. Será exibida uma seta na tela apontando para a esquerda ou para a direita (por exemplo <span>&#8592;</span> ou <span>&#8594;</span>). <p> Em algumas tentativas, a seta será acompanhada por duas setas para a esquerda (<span>&#8592;</span> <span>&#8592;</span> <span>&#8594;</span> <span>&#8592;</span> <span>&#8592;</span>) e duas setas para a direita (<span>&#8594;</span> <span>&#8594;</span> <span>&#8592;</span> <span>&#8594;</span> <span>&#8594;</span>).</p>")
+    .cssContainer({
+    "font-size":"22px",
+    "text-align": "center"})
+,
+newText("instructions-3","<center> <b>Sua tarefa é responder à direção da seta CENTRAL:</b></center>")
+    .cssContainer({
+    "font-size":"20px",
+    "text-align": "justify"})
+,
+newText("instructions-5","<p><center>  <span>&#8592;</span> <span>&#8592;</span> <b style= 'border: 2px solid black';><span>&#8594;</span></b> <span>&#8592;</span> <span>&#8592;</span> </p></center>")
+     .cssContainer({
+   "font-size":"25px",
+    "text-align": "justify",
+    "white-space": "nowrap"})
+,
+newText("<br>Por favor, digite sua <b style=color:red;>identificação</b> abaixo e clique no botão para continuar.</br>")
+    ,
+    newTextInput("inputID", "")
+        .center()
+        .css("margin","2em")    // Add a em margin around this element
+        .print()
+,
+newButton("wait","CONTINUAR")
+  .center()
+  .print()
+
+// Only validate a click on Start when inputID has been filled
+        .wait( getTextInput("inputID").testNot.text("") 
+        .failure(newText("failure", "Por favor, identifique-se acima.")
+        .cssContainer({"margin-top": "1em", "color": "red"})
+         .center()
+         .print()
+         ))
+    ,
+// Store the text from inputID into the Var element
+    getVar("ID").set( getTextInput("inputID") )
+);
+////////////////////////////////////////////////////Intructions_B////////////////////////////////////////////////////////////
+newTrial("instructions_B",
+defaultText
+        .print()
+,
+newText("instructions-7","Cuidado!")
+.cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px"})
+    .center()
+,
+newText("keys","<p>Tecla Esquerda <b>S</b> <b style=color:#ffffff00;>this space is invisible indeed indeed</b> Tecla Direita <b>K</b></p>")
+   .cssContainer({
+   "font-size":"22px",
+   "text-align": "left",
+   "color":"blue",  
+   "white-space":"nowrap"})
+,
+newImage("right_instructions","inst_right.png")
+   .size(200,100)
+   .cssContainer({
+    //"margin-bottom": "10%",
+    "border": "5px solid black",
+    "padding": "0.5em"})
+       .center()
+       .print()
+,
+newText("right_order","<p> Você deve pressionar a <b>tecla S</b> se a seta CENTRAL apontar para a esquerda</p>")
+    .cssContainer({
+   "font-size":"22px",
+   "text-align": "center",
+    "white-space":"nowrap"})
+   .center()
+,
+newImage("left_instructions","inst_left.png")
+   .size(200,100)
+   .cssContainer({
+    //"margin-bottom": "10%",
+    "border": "5px solid black",
+    "padding": "0.5em"})
+       .center()
+       .print()
+,
+newText("left_order","<p> Você deve pressionar a <b>tecla K</b> se a seta CENTRAL apontar para a esquerda</p>")
+    .cssContainer({
+   "font-size":"22px",
+   "text-align": "center",
+    "white-space":"nowrap"})
+   .center()
+,
+newText("fish-sentence_2","Por favor, dê sua resposta o mais rápido possível, mas não rápido demais para que você não erre muito. Seu tempo de reação e os seus acertos serão registrados.")
+   .center()
+   .cssContainer({
+   "font-size":"22px",
+   "text-align": "center"})
+,
+   newButton("wait","CONTINUAR")
+   .cssContainer({
+   "position": "absolute",
+   "bottom": "-40px"})
+   .center()
+   .print()
+   .wait()
+);
+////////////////////////////////////////////////////Intructions_C////////////////////////////////////////////////////////////
+newTrial("instructions_C",
+defaultText
+        .print()
+        .center()
+,
+  newText("instructions-10","Cuidado!")
+  .cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px"})
+,
+
+newText("fish-sentence","<p>Haverá uma cruz <b>(+)</b> no centro da tela e as setas aparecerão <b style=color:red;>acima</b> ou <b style=color:red;>abaixo</b> da cruz:</p>")
+   .center()
+   .cssContainer({
+   "font-size":"22px",
+   "text-align": "center",
+   "white-space":"nowrap"})
+,
+   newImage("arrows_up","pagina_3_up.png")
+   .size(200,200)
+   .cssContainer({
+        "margin-bottom": "5%",
+        "border": "5px solid black"})
+,
+   newImage("arrows_down","pagina_3_down.png")
+   .size(200, 200)
+   .cssContainer({
+        "margin-bottom": "5%",
+        "border": "5px solid black"})
+,
+   newCanvas("side-by-side", 450,200)
+        .add(  0, 0, getImage("arrows_up"))
+        .add(250, 0, getImage("arrows_down"))
+        .center()
+        .print()
+,
+newText("fish-sentence_2","<p>Você deve tentar se fixar na cruz durante todo o experimento</p>")
+   .center()
+   .cssContainer({
+   "font-size":"22px",
+   "text-align": "center"})
+,
+   newButton("wait","CONTINUAR")
+   .center()
+   .print()
+   .wait()
+);
+////////////////////////////////////////////////////Intructions_D////////////////////////////////////////////////////////////
+newTrial("instructions_D",
+defaultText
+        .print()
+,
+  newText("instructions-11","Cuidado!")
+  .cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px"})
+    .center()
+,
+newText("cue-sentence","<p>Em alguns momentos, haverá um asterisco <b>(*)</b> indicando quando ou onde a seta irá aparecer:</p>")
+   .center()
+   .cssContainer({
+   "font-size":"22px",
+   "text-align": "center"})
+   .center()
+,
+   newImage("cue_1_demo","page_4_1.png")
+   .size(215,150)
+   .cssContainer({
+        "margin-bottom": "10%",
+        "border": "5px solid black"})
+,
+   newImage("cue_2_demo","page_4_2.png")
+   .size(215, 150)
+   .cssContainer({
+        "margin-bottom": "10%",
+        "border": "5px solid black"})
+,
+newImage("cue_3_demo","page_4_3.png")
+   .size(215, 150)
+   .cssContainer({
+        "margin-bottom": "10%",
+        "border": "5px solid black"})
+,
+newImage("cue_4_demo","page_4_4.png")
+   .size(215, 150)
+   .cssContainer({
+        "margin-bottom": "10%",
+        "border": "5px solid black"})
+,
+   newCanvas("side-by-side", 450,200)
+        .add(-250, 0, getImage("cue_1_demo"))
+        .add(0, 0, getImage("cue_2_demo"))
+        .add(250, 0, getImage("cue_3_demo"))
+        .add(500, 0, getImage("cue_4_demo"))
+        .cssContainer({
+        "padding": "1,5em"})
+        .center()
+        .print()
+,
+newText("cue-left","<p>Se o asterisco estiver no <b style=color:red;>centro</b> ou <b style=color:red;>acima e abaixo</b> da fixação,<br> isso indica que a seta aparecerá em breve.</p>")
+   .cssContainer({
+   "font-size":"22px",
+   "position": "absolute",
+   "text-align":"center",
+   "bottom": "-40px",
+   "left": "-235px",
+   "white-space":"nowrap"})
+   
+,
+newText("cue-right","<p>Se o asterisco estiver apenas <b style=color:red;>acima ou abaixo</b> da fixação,<br> isso indica que o teste ocorrerá em breve e <b style=color:red;>onde</b> ocorrerá.</p>")
+    .cssContainer({
+   "font-size":"22px",
+   "text-align":"center",   
+   "position": "absolute",
+   "bottom": "-40px",
+   "left": "335px",
+   "white-space":"nowrap"})
+,
+newText("aviso","<p>Tente se manter fixo na tela o tempo todo.</p>")
+        .center()
+        .cssContainer({
+   "font-size":"20px",
+   "text-align":"right",   
+   "position": "absolute",
+   "bottom": "-60px",
+   "margin":"-1em"})   
+        .print()
+,
+   newButton("wait","CONTINUAR")
+   .cssContainer({
+   "position": "absolute",
+   "bottom": "-95px"})
+   .center()
+   .print()
+   .wait()
+);
+////////////////////////////////////////////Instructions_Extra////////////////////////////////////////////////////////////////
+newTrial("instructions_Extra",
+defaultText
+        .print()
+,
+newText("instructions-1","Cuidado!")
+.cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px",
+    "white-space":"nowrap"})
+    .center()
+,
+newText("warning1","<p>O experimento contém <b style=color:red;>quatro</b> blocos:</p>")
+    .cssContainer({
+    "font-size":"22px",
+    "text-align": "left"})
+,
+newText("warning2","<p>O primeiro bloco é para prática e leva cerca de dois minutos. Os outros três blocos são blocos experimentais;</p>")
+    .cssContainer({
+    "font-size":"22px",
+    "text-align": "left"})
+,
+newText("warning3","Após cada bloco, haverá uma mensagem <q>faça uma pausa</q> e você poderá fazer um breve descanso. <br> Depois disso, você pode clicar em <q>continuar</q> para iniciar o próximo bloco;</p>")
+    .cssContainer({
+    "font-size":"22px",
+    "text-align": "left",
+    "white-space": "nowrap"})
+,
+newText("warning4","<p>Todo o experimento leva cerca de vinte minutos;</p>")
+    .cssContainer({
+    "font-size":"22px",
+    "text-align": "left",
+    "white-space": "nowrap"})
+,
+newText("instructions-3","<center> <b>Se você tiver alguma dúvida, pergunte à pesquisadora.</b></center>")
+    .cssContainer({
+    "font-size":"20px",
+    "text-align": "justify"})
+    .center()
+,
+newButton("wait","PRATICAR E ABRIR TELA CHEIA")
+  .center()
+  .cssContainer({"margin":"1em"})
+  .print()
+  .wait()
+,
+  fullscreen()
+);
+////////////////////////////////////////////Place your hands on the keyboard warning/////////////////////////////////////////
+newTrial("keyboard_warning",
+newText("keyboard-text","Coloque seus dedos nas teclas S e K")
+.cssContainer({
+    "font-size":"30px",
+    "position": "absolute",
+    "margin-top": "255px",    //places it in the middle of the screen 
+    "white-space": "nowrap"})
+.center()
+.print()
+,
+    newTimer("timer-keyboard",1500)
+    .start()
+    .wait()
+,
+  getText("keyboard-text").remove()
+,
+newVar("startPractice").global().set(()=>Date.now())
+);
+
+//////////////////////////////////////////trial_1 - no_cue// PARA CIMA/LEFT//////////////////////////////////////////////////////
+    Template("tabela-target_left.csv" , row => 
+    newTrial("p_trial_1_no_cue_UP",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", " <br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+,
+newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+ getTimer("timer-RT").wait()
+,
+getKey("keypress1").disable(),
+    getText("cruz_central").remove()
+,
+    getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+    getKey("keypress1")
+     .test.pressed("S")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+    newTimer("wait-success",2000) //timer for the success or failure messenge
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+/////////////////////////////////////////trial_1 - no_cue// PARA BAIXO//RIGHT////////////////////////////////////////////////////////
+    Template("tabela-target_right.csv" , row => 
+    newTrial("p_trial_1_no_cue_DOWN",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br><b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"}) 
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+    getTimer("timer-RT").wait()
+,
+  getKey("keypress1").disable(),
+  getText("cruz_central").remove()
+,
+  getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+    getKey("keypress1")
+     .test.pressed("K")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+    newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+////////////////////////////////////////////////trial_2 - center_cue_PARA CIMA/RIGHT/////////////////////////////////////////////
+Template("tabela-target_right.csv" , row => 
+    newTrial("p_trial_2_center_cue_UP",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br><b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+    getTimer("timer-RT").wait()
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central").remove()
+,
+    getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+    getKey("keypress1")
+     .test.pressed("K")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+/////////////////////////////////////////trial_2 - center_cue_PARA BAIXO/LEFT////////////////////////////////////////////////////
+Template("tabela-target_left.csv" , row => 
+    newTrial("p_trial_2_center_cue_DOWN",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+    newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+getTimer("timer-RT").wait()
+,
+getKey("keypress1").disable(),
+ getText("cruz_central").remove()
+,
+ getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+    getKey("keypress1")
+     .test.pressed("S")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto!Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+     getTimer("wait-separacao").wait()
+));
+
+///////////////////////////////////////////////trial_3 - double_cue// PARA CIMA/LEFT//////////////////////////////////////////////
+Template("tabela-target_left.csv" , row => 
+    newTrial("p_trial_3_double_cue_UP",
+    defaultText
+       .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue-double","<b>*<br>+<br>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+    "margin-top": "-58px"})
+    .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue-double","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add("center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+   getTimer("timer-RT").wait()
+,
+   getKey("keypress1").disable(),
+   getText("cruz_central").remove()
+,
+  getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+   getKey("keypress1")
+     .test.pressed("S")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+/////////////////////////////////////////trial_3 - double_cue// PARA BAIXO/RIGHT/////////////////////////////////////////////////////
+Template("tabela-target_right.csv" , row => 
+    newTrial("p_trial_3_double_cue_DOWN",
+    defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue-double","<b>*<br>+<br>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+    "margin-top": "-58px"})
+    .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue-double","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+getTimer("timer-RT").wait()
+,
+getKey("keypress1").disable(),
+ getText("cruz_central").remove()
+,
+ getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+   getKey("keypress1")
+     .test.pressed("K")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+////////////////////////////////////////trial_4 - spatial_cue// PARA CIMA//LEFT/////////////////////////////////////////////////////
+Template("tabela-target_left.csv" , row => 
+    newTrial("p_trial_4_spatial_cue_UP",
+    defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<b>*</b><br><b>+</b>")
+   .center()
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+,
+   newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+getTimer("timer-RT").wait()
+,
+getKey("keypress1").disable(),
+ getText("cruz_central").remove()
+,
+ getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+   getKey("keypress1")
+     .test.pressed("S")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+
+//////////////////////////////////////////////////trial_4_spatial_cue_DOWN//RIGHT//////////////////////////////////////////
+Template("tabela-target_right.csv" , row => 
+    newTrial("p_trial_4_spatial_cue_DOWN",
+    defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",6000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b><br><b>*</b>")
+   .center()
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+    "margin-top": "-58px"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .print()
+,
+    newVar("localRT").set(v=>Date.now()),
+    newKey("keypress1","SK")
+    .callback( getTimer("timer-RT").stop() )
+,
+getTimer("timer-RT").wait()
+,
+getKey("keypress1").disable(),
+ getText("cruz_central").remove()
+,
+ getCanvas("center").remove()
+,
+    getVar("localRT").set(v=>Date.now()-v),
+    newVar("practiceRTs",[]).global().set(v=>[...v,getVar("localRT").value])
+,
+    newVar("accurate", []).global()
+,
+   getKey("keypress1")
+     .test.pressed("K")
+    .success(
+    newVar("positiveFeedback").set( getVar("localRT") ).set( v=> "Correto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("success")
+        .text( getVar("positiveFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"green","white-space":"nowrap"})
+    ,
+    getVar("accurate").set(v=>[...v,true])
+)
+    .failure(
+    newVar("negativeFeedback").set( getVar("localRT") ).set( v=> "Incorreto! Você demorou "+v+"ms para responder" )
+    ,
+    newText("failure")
+        .text( getVar("negativeFeedback") )
+        .cssContainer({"font-size":"30px", "text-align":"center", "margin-top":"255px","font-family":"Comic Sans MS", "color":"red","white-space":"nowrap"})
+,
+    getVar("accurate").set(v=>[...v,false])
+)
+,
+     getText("cruz_central")
+    .remove()
+,
+    getCanvas("center")
+    .remove()
+,
+    newTimer("wait-success",2000)
+    .start()
+    .wait()
+,
+    getText("success")
+    .remove()
+,
+    getText("failure")
+    .remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+));
+////////////////////////////////////////////////////feedback from practice trials////////////////////////////////////////////
+newTrial("feedback-trial",
+defaultText
+        .print()
+,
+newText("feedback-text","Seus resultados:")
+.cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "margin":"1em",
+    "font-size":"50px"})
+    .center()
+,
+  newVar("timeText").set( getVar("practiceRTs").global() ).set(v=> "Você demorou "+(v.reduce((n,m)=>n+m)/v.length)+"ms por pergunta em média" ),
+  newText( "feedbackTime" ).text( getVar("timeText") ).print()
+  .cssContainer({
+    "font-size":"22px",
+    "text-align": "left",
+    "white-space":"nowrap"})
+  ,
+  newVar("accuracyText").set( getVar("accurate").global() ).set(v=> "Você acertou "+v.filter(a=>a==true).length+" do total de "+v.length ),
+  newText( "feedbackAccuracy" ).text( getVar("accuracyText") ).print()
+  .cssContainer({
+    "font-size":"22px",
+    "text-align": "left",
+    "white-space":"nowrap"})
+  ,
+  newButton("CONTINUAR")
+  .center()
+  .cssContainer({"margin":"1em"})
+  .print()
+  .wait()
+);
+////////////////////////////////////////////////////Intructions_E////////////////////////////////////////////////////////////
+newTrial("instructions_E",
+  newText("instructions-12","Você está pronto?")
+    .cssContainer({
+        "border": "5px solid black",
+        "background-color": "yellow",
+        "color": "black",
+        "font-size":"50px"
+    })
+    .center()
+    .print()
+  ,
+  newText("instructions-17","<p>Sinta-se livre para fazer uma pausa agora</p>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newImage("boy-image","boy.png")
+    .size(200,200)
+    .center()
+    .print()
+  ,
+  newText("instructions-14","<p><center> Se você quiser praticar de novo, clique aqui:")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+ ,
+  newButton("come back","PRATICAR DE NOVO")
+    .callback(newVar("practiceRTs").global().set( [] ),newVar("accurate").global().set( [] ),jump(startsWith("p_trial")) , end() )
+    .css("margin","1.5em")
+    .center()
+    .print()
+  ,
+  newText("instructions-blocks","<p><center>A tarefa terá 3 blocos. <b style=color:red;>Cada bloco dura aproximadamente 5 minutos.</b> No total, você deve demorar 15 minutos.</p></center>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center",
+        "white-space":"nowrap"})
+    .center()
+    .print()
+  ,
+  newText("instructions-15","<p><center>Quando você se sentir <b style=color:red;>PRONTO</b>, clique no botão abaixo:</p></center>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newButton("wait","COMEÇAR")
+    .center()
+    .print()
+    .wait()
+);
+////////////////////////////////////////////////////keyboard warning short version to be recalled////////////////////////
+newTrial("keyboard_warning_short",
+newText("keyboard-text","Coloque seus dedos nas teclas S e K")
+.cssContainer({
+    "font-size":"30px",
+    "position": "absolute",
+    "margin-top": "255px",    //places it in the middle of the screen 
+    "white-space": "nowrap"})
+.center()
+.print()
+,
+    newTimer("timer-keyboard",1500)
+    .start()
+    .wait()
+,
+  getText("keyboard-text").remove()
+);
+//////////////////////////////////////////trial_1 - no_cue// PARA CIMA///////////////////////////////////////////////////////
+    Template("tabela-target.csv" , row => 
+    newTrial("trial_1_no_cue_UP",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", " <br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+    .log()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+       .log("all") 
+       .callback( getTimer("timer-RT").stop() )
+        
+    ,
+    getTimer("timer-RT").wait()  
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+);
+
+/////////////////////////////////////////trial_1 - no_cue// PARA BAIXO///////////////////////////////////////////////////////
+    Template("tabela-target.csv" , row => 
+    newTrial("trial_1_no_cue_DOWN",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br><b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random())) 
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+        .log("all") 
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+,
+    getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+    newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+   .log("imagens", row.imagem)
+   .log("item", row.versao)
+   .log( "ReactionTime" , getVar("RT") )
+);
+
+////////////////////////////////////////////////trial_2 - center_cue_PARA CIMA//////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_2_center_cue_UP",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+ newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br><b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+         .log("all")
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+   .log( "ReactionTime" , getVar("RT") )
+);
+
+/////////////////////////////////////////trial_2 - center_cue_PARA BAIXO/////////////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_2_center_cue_DOWN",
+defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                      "top": "50%",
+                      "left": "50%",
+                      "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+    newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+         .log("all")
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+    ,
+    getVar("RT").set( v => Date.now() - v )
+    ,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+
+);
+
+///////////////////////////////////////////////trial_3 - double_cue// PARA CIMA///////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_3_double_cue_UP",
+    defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+ newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+    newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue-double","<b>*</b><br><b>+</b><br><b>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+   "margin-top": "-58px"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue-double","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .center()
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .print()
+    .log()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+        .log("all")
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+);
+
+/////////////////////////////////////////trial_3 - double_cue// PARA BAIXO//////////////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_3_double_cue_DOWN",
+    defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue-double","<b>*<br>+<br>*</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+    "margin-top": "-58px"})
+    .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue-double","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+     newKey("keypress1","SK")
+        .log("all")
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+);
+
+////////////////////////////////////////trial_4 - spatial_cue// PARA CIMA/////////////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_4_spatial_cue_UP",
+     defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<b>*</b><br><b>+</b>")
+   .center()
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+    //para cima//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "85px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+         .log("all")
+        .callback( getTimer("timer-RT").stop() )
+    ,
+    getTimer("timer-RT").wait()
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+);
+
+///////////////////////////////////////////trial_4 - spatial_cue// PARA BAIXO////////////////////////////////////////////////////
+Template("tabela-target.csv" , row => 
+    newTrial("trial_4_spatial_cue_DOWN",
+     defaultText
+        .center()
+       .cssContainer({"position": "absolute",
+                    "top": "50%",
+                     "left": "50%",
+                    "transform": "translate(-50%, +50%)"})
+        .print()
+,
+newTimer("wait-separacao",4000).start()
+,
+    newText("D1", "<br> <b>+</b>")
+    .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+    .center()
+    .print()
+,
+   newTimer("timer-D1",400+Math.round(1200*Math.random()))
+    .start()
+    .wait()
+,
+   getText("D1")
+   .remove()
+,
+newText("cue", "<br> <b>+</b><br><b>*</b>")
+   .center()
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black",
+   "position": "absolute",
+    "margin-top": "-58px"})
+   .center()
+   .print()
+,
+    newTimer("timer_cue_D2",100)
+    .start()
+    .wait()
+,
+   getText("cue","D2")
+   .remove()
+,
+   newText("D3", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+   newTimer("timer_D3",400)
+    .start()
+    .wait()
+,
+   getText("D3")
+   .remove()
+,
+newTimer("timer-RT",1700).start()
+,
+    newImage("imagens", row.imagem)
+    .size(500, 200)
+,
+   newText("cruz_central", "<br> <b>+</b>")
+   .cssContainer({
+   "font-size":"100px",
+   "color":"black"})
+   .center()
+   .print()
+,
+     //para baixo//
+    newCanvas("center", 150,150)
+    .add( "center at 50%" , "center at 50%" , getImage("imagens"))
+    .cssContainer({
+    "position": "absolute",
+    "margin-top": "340px"})
+    .center()
+    .log()
+    .print()
+,
+newVar("RT").global().set( v => Date.now() )
+,
+    newKey("keypress1","SK")
+         .log("all")
+        .callback( getTimer("timer-RT").stop() )
+,
+    getTimer("timer-RT").wait()
+,
+getVar("RT").set( v => Date.now() - v )
+,
+    getKey("keypress1").disable(),
+    getText("cruz_central"),
+    getCanvas("center").remove()
+,
+   newText("separacao", "<br> <b>+</b>")
+   .cssContainer({
+    "font-size":"100px",
+    "color":"black"})
+   .center()
+   .print()
+,
+    getTimer("wait-separacao").wait()
+)
+  .log("imagens", row.imagem)
+  .log("item", row.versao)
+  .log( "ReactionTime" , getVar("RT") )
+);
+
+///////////////////////////////////////////////////////Instructions_F//////////////////////////////////////////////////////
+newTrial("instructions_F",
+  newText("instructions-12","Bloco 2")
+    .cssContainer({
+        "border": "5px solid black",
+        "background-color": "yellow",
+        "color": "black",
+        "font-size":"50px"
+    })
+    .center()
+    .print()
+  ,
+  newText("instructions-17","<p>Sinta-se livre para fazer uma pausa agora</p>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newImage("boy-image","boy.png")
+    .size(200,200)
+    .center()
+    .print()
+  ,
+  newText("instructions-15","<p><center> Quando você se sentir <b style=color:red;>PRONTO</b>, clique aqui:</p></center>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newButton("wait","CONTINUAR")
+    .center()
+    .print()
+    .wait()
+);
+/////////////////////////////////////////////////////////Instructions_G////////////////////////////////////////////////////////
+newTrial("instructions_G",
+  newText("instructions-12","Bloco 3")
+    .cssContainer({
+        "border": "5px solid black",
+        "background-color": "yellow",
+        "color": "black",
+        "font-size":"50px"
+    })
+    .center()
+    .print()
+  ,
+  newText("instructions-17","<p>Sinta-se livre para fazer uma pausa agora</p>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newImage("boy-image","boy.png")
+    .size(200,200)
+    .center()
+    .print()
+  ,
+  newText("instructions-15","<p><center> Quando você se sentir <b style=color:red;>PRONTO</b>, clique aqui:</p></center>")
+    .cssContainer({
+        "font-size":"22px",
+        "text-align": "center"
+    })
+    .center()
+    .print()
+  ,
+  newButton("wait","CONTINUAR")
+    .center()
+    .print()
+    .wait()
+);
+//////////////////////////////////////////////////////////GET BLOCKS TIMER///////////////////////////////////////////////
+newTrial("blocks-timer-trial",
+newText("blocks-text","Espere...")
+.cssContainer({
+    "font-size":"30px",
+    "position": "absolute",
+    "margin-top": "255px",    //places it in the middle of the screen 
+    "white-space": "nowrap"})
+.center()
+.print()
+,
+    newTimer("blocks-text-timer",1500)
+    .start()
+    .wait()
+,
+  getText("blocks-text").remove()
+);
+///////////////////////////////////////////////////////////SEND THE RESULTS//////////////////////////////////////////////////////
+
+SendResults("send");
+
+//////////////////////////////////////////////////// Tela final//////////////////////////////////////////////////////////////
+newTrial ("telaFinal" ,
+    newText("<b>Obrigada pela participação!</b>")
+    .cssContainer({
+    "border": "5px solid black",
+    "background-color": "yellow",
+    "color": "black",
+    "font-size":"50px",
+    "margin-top": "255px",
+    "white-space":"nowrap"})
+    .center()
+    .print()
+,
+    
+    newText("<p>Você pode fechar essa janela agora <b>&#x1F604;</b></p>")
+    .cssContainer({
+    "color": "black",
+    "font-size": "30px"})
+    .center()
+    .print()
+,        
+exitFullscreen()
+,
+
+    // Stay on this page forever
+    newButton().wait()
+);
+
+////de bug off///
+
+//PennController.DebugOff();  
+
+///////////
+   
