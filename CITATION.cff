@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Cury"
+  given-names: "Larissa"
+  orcid: "https://orcid.org/0000-0002-3184-8982"
+title: "publication"
+version: 1.0.0
+doi: 10.5281/zenodo.7244915
+date-released: 2022-10-24
+url: "https://doi.org/10.5281/zenodo.7244915"
